@@ -10,11 +10,13 @@ export class TaggingService {
   ) {}
 
   async addTags(docId: number, tags: string[]) {
+    console.log(docId, tags);
     const document = await this.documentRepo.findOneBy({ id: docId });
     if (!document) {
       throw new NotFoundException('Document not found');
     }
     document.tags = [...(document.tags || []), ...tags];
+    console.log(document);
     return this.documentRepo.save(document);
   }
 
